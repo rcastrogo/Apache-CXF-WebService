@@ -18,13 +18,22 @@
 	</jaxws:endpoint>
   
   <bean id="serviceBean" class="rcastro.apps.services.UserService"/>
+  <bean id="requestFilter" class="rcastro.apps.loggin.RequestLoggingFilter"/>
+  <bean id="responseFilter" class="rcastro.apps.loggin.ResponseLoggingFilter"/>
   
   <jaxrs:server id="restContainer" address="/users">
 	  <jaxrs:serviceBeans>
 	    <ref bean="serviceBean" />
 	  </jaxrs:serviceBeans>
+	  
+    <jaxrs:providers>
+        <ref bean="requestFilter"/>
+        <ref bean="responseFilter"/>
+    </jaxrs:providers>
+	  
   </jaxrs:server>
   
-  <jaxrs:server address="/users2" basePackages="rcastro.apps.services"/>
+  <jaxrs:server address="/users2" basePackages="rcastro.apps.services" >
+  </jaxrs:server>
  
 </beans>
